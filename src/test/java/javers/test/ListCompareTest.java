@@ -8,12 +8,17 @@ import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Diff;
 import org.javers.core.diff.ListCompareAlgorithm;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
 public class ListCompareTest {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Test
     public void testAsSet() {
         Javers javers = JaversBuilder.javers()
@@ -43,8 +48,7 @@ public class ListCompareTest {
 
         equalEntityPartnerTest(javers);
     }
-    
-    
+
     private void equalEntityPartnerTest(Javers javers) {
         Person e1 = new Person("james", "ignore this");
         Company le1 = new Company("1", e1, null, Arrays.asList(e1));
@@ -53,8 +57,8 @@ public class ListCompareTest {
         Company le2 = new Company("1", e2, null, Arrays.asList(e2));
         Diff diff = javers.compare(le1, le2);
 
-        System.out.println(diff);
+        logger.info("{}", diff);
         assertEquals(0, diff.getChanges().size());
     }
-    
+
 }

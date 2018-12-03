@@ -8,6 +8,8 @@ import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Diff;
 import org.javers.core.diff.ListCompareAlgorithm;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class CollectionCompareTest {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Test
     public void testAsSet() {
@@ -58,7 +62,7 @@ public class CollectionCompareTest {
         Company le2 = new Company("1", null, clients2, null);
         Diff diff = javers.compare(le1, le2);
 
-        System.out.println(diff);
+        logger.info("{}", diff);
         assertEquals(0, diff.getChanges().size());
     }
 
